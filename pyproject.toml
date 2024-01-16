@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wagtail-user-workspace"
+version = "0.1.0"
+authors = [
+  { name="LESPROJEKT-SLUŽBY s.r.o.", email="support@hub4everybody.com" },
+]
+description = "Wagtail workspace page for every registred user."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    'Intended Audience :: Developers',
+    "Operating System :: OS Independent",
+]
+
+dependencies = [     
+    "wagtail < 5.0.0",
+    "django-solo",
+    "django-allauth"
+]
