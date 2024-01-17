@@ -13,7 +13,9 @@ class InvalidWorkspacePage(WorkspacePageBase, models.Model):
     pass
 
 class ValidWorkspacePage(WorkspacePageBase, Page):
-    pass
+    subpage_types = [
+        'tests.BasicPage1',
+    ]
 
 class ToManySubpageTypesWorkspacePage(WorkspacePageBase, Page):
     subpage_types = [
