@@ -1,0 +1,63 @@
+# This workflow will upload a Python Package using Twine when a release is created
+# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Upload to PyPI TEST
+
+on:
+  push:    
+    branches:    
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3       
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Get current version
+      id: get_version      
+      run: |
+        pip install bumpver
+        echo "CURRENT_VERSION=$(bumpver show --no-fetch | grep 'Current Version: ' | cut -d ':' -f 2)" >> $GITHUB_OUTPUT
+  
+    - name: Setup git config
+      run: |        
+        git config --global user.name "Github Actions Bot"
+        git config --global user.email "<>"
+  
+    - name: Bump dev version    
+      if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
+      run: bumpver update --commit --push -f --tag-num
+
+    #It's still open if the new version after release should be patch (or minor?)
+    - name: Bump patch dev version
+      if: ${{ !contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
+      run: bumpver update --commit --push -f --patch --tag=dev
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine build
+
+    - name: Build package
+      run: python -m build
+
+    - name: Publish test package
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+      run: python -m twine upload --repository testpypi dist/*
