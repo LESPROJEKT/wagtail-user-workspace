@@ -3,14 +3,14 @@ from wagtail.models import Page
 from wagtail_user_workspace.models import WorkspacePageBase
 from coderedcms.models import CoderedWebPage
 
-class WebPage(CoderedWebPage):
+class WebPage(Page):
     
     class Meta:
-        verbose_name = "Web Page"
+        verbose_name = "Web Page (Wagtail)"
 
     template = "coderedcms/pages/web_page.html"
 
-class ValidWorkspacePage(WorkspacePageBase, CoderedWebPage):    
+class ValidWorkspacePage(WorkspacePageBase, Page):    
 
     subpage_types = [
         'tests.WebPage',
