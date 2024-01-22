@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "wagtail-user-workspace"
-version = "0.1.0"
+version = "0.1.0dev0"
 authors = [
   { name="LESPROJEKT-SLUŽBY s.r.o.", email="support@hub4everybody.com" },
 ]
@@ -15,6 +15,20 @@ classifiers = [
     "Programming Language :: Python :: 3",
     'Intended Audience :: Developers',
     "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/LESPROJEKT/wagtail-user-workspace"
+"Bug Tracker" = "https://github.com/LESPROJEKT/wagtail-user-workspace/issues"
+
+[tool.bumpver]
+current_version = "0.1.0dev0"
+version_pattern = "MAJOR.MINOR.PATCH[TAGNUM]"
+commit_message = "bumpver/{old_version} -> {new_version} [skip actions]"
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'version = "{version}"',
 ]
 
 dependencies = [     
