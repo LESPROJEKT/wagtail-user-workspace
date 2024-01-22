@@ -16,6 +16,11 @@ classifiers = [
     'Intended Audience :: Developers',
     "Operating System :: OS Independent",
 ]
+dependencies = [     
+    "wagtail < 5.0.0",
+    "django-solo",
+    "django-allauth"
+]
 
 [project.urls]
 "Homepage" = "https://github.com/LESPROJEKT/wagtail-user-workspace"
@@ -31,8 +36,3 @@ commit_message = "bumpver/{old_version} -> {new_version} [skip actions]"
     'version = "{version}"',
 ]
 
-dependencies = [     
-    "wagtail < 5.0.0",
-    "django-solo",
-    "django-allauth"
-]
