@@ -5,7 +5,7 @@ This app creates personal workspace page for every user on registration.
 
 Users are able to publish new child pages under their workspace page. This includes minimal needed permissions to do so. Namely access to Wagtail admin and add, edit and publish permissions to their own workspace page.
 
-Structure and type of these pages is higly customisable.
+Structure and type of these pages is highly customisable.
 
 ## Quick start
 
@@ -72,7 +72,7 @@ User has a full controll over this page. He can edit, publish, and even delete i
 
 ## Development
 
-To develop this app locally you can just clone this repo. Than run local server by running 
+To develop this app locally you can just clone this repo. Then run local server by running 
 
 ```
 $ python manage.py runserver
