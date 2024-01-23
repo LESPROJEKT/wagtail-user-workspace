@@ -62,6 +62,12 @@ Structure and type of these pages is higly customisable.
 
 6. Now start your web, navigate to the Wagtail admin interface and create root page for user workspaces:
 
+    <img src="screenshots/1.png"/>
+
+7. After some user signs in, new workspace page will be generated for him.
+User has a full controll over this page. He can edit, publish, and even delete it. If defenition of `CustomWebPage` alows it, he can even add subpages.
+
+    <img src="screenshots/2.png"/>
     
 
 ## Development
