@@ -12,9 +12,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+env_path = Path(BASE_DIR).joinpath(".env").__str__()
+
+load_dotenv(env_path)
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,6 +30,16 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    "tests",
+    "wagtail_user_workspace",    
+    # Wagtail CRX (CodeRed Extensions)
+    "coderedcms",
+    "django_bootstrap5",
+    "modelcluster",
+    "taggit",
+    "wagtailcache",
+    "wagtailseo",
+    # Wagtail
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -33,29 +49,47 @@ INSTALLED_APPS = [
     "wagtail.documents",
     "wagtail.images",
     "wagtail.search",
+    "wagtail",
+    "wagtail.contrib.settings",
+    "wagtail.contrib.modeladmin",
+    "wagtail.contrib.table_block",
     "wagtail.admin",
-    "wagtail",    
-    "modelcluster",
-    "taggit",
+    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "tests",    
+    "django.contrib.sitemaps",
+    #Allauth
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
+    # Save pages to cache. Must be FIRST.
+    "wagtailcache.cache.UpdateCacheMiddleware",
+    # Common functionality
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.CommonMiddleware",
+    # Security
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    #  Error reporting. Uncomment this to receive emails when a 404 is triggered.
+    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
+    # CMS functionality
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
+    # Fetch from cache. Must be LAST.
+    "wagtailcache.cache.FetchFromCacheMiddleware",
 ]
+
+ROOT_URLCONF = "tests.urls"
 
 TEMPLATES = [
     {
@@ -75,16 +109,15 @@ TEMPLATES = [
     },
 ]
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#     }
+# }
 
 
 # Password validation

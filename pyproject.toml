@@ -17,7 +17,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [     
-    "wagtail < 5.0.0",
+    "wagtail==4.*",
     "django-solo",
     "django-allauth"
 ]

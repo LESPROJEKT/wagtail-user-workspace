@@ -7,7 +7,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 from wagtail_user_workspace.checks import check_workspace_model_type, check_workspace_model_configured, check_subpge_types_count
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "tests.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "tests.config.dev"
 setup()
 
 class ChecksTestCase(TestCase):

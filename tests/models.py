@@ -1,25 +1,43 @@
 from django.db import models
 from wagtail.models import Page
 from wagtail_user_workspace.models import WorkspacePageBase
+from coderedcms.models import CoderedWebPage
 
-class BasicPage1(Page):
+class WebPage(Page):
+    
+    class Meta:
+        verbose_name = "Web Page (Wagtail)"
+
+    template = "coderedcms/pages/web_page.html"
+
+class ValidWorkspacePage(WorkspacePageBase, Page):    
+
+    subpage_types = [
+        'tests.WebPage',
+    ]
+
+    template = "coderedcms/pages/web_page.html"
+
+#Private models used only in tests
+#Cannot be created from editor interface
+    
+class NonCreatablePageMixin:
+    parent_page_types = []
+
+class BasicPage1(Page, NonCreatablePageMixin):
     pass
 
-class BasicPage2(Page):
+class BasicPage2(Page, NonCreatablePageMixin):
     pass
 
-
-class InvalidWorkspacePage(WorkspacePageBase, models.Model):
+class InvalidWorkspacePage(WorkspacePageBase, models.Model, NonCreatablePageMixin):    
     pass
 
-class ValidWorkspacePage(WorkspacePageBase, Page):
-    pass
-
-class ToManySubpageTypesWorkspacePage(WorkspacePageBase, Page):
+class ToManySubpageTypesWorkspacePage(WorkspacePageBase, Page, NonCreatablePageMixin):    
     subpage_types = [
         'tests.BasicPage1',
         'tests.BasicPage2',
     ]
 
-class ZeroSubpageTypesWorkspacePage(WorkspacePageBase, Page):
+class ZeroSubpageTypesWorkspacePage(WorkspacePageBase, Page, NonCreatablePageMixin):    
     subpage_types = []

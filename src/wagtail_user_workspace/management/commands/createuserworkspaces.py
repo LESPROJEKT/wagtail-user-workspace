@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 
-from hub.user_workspace.models import WorkspacePage
-from hub.user_workspace.handlers import create_user_workspace
+from wagtail_user_workspace.handlers import create_user_workspace
+from wagtail_user_workspace.utils import get_workspace_page_model
 
 class Command(BaseCommand):
     help = 'Generates user workspace pages for users that has none.'   
@@ -22,6 +22,6 @@ class Command(BaseCommand):
            self.stdout.write(user.username + "'s workspace")
 
     def get_users_without_workspace(self):
-        workspaces_parent = WorkspacePage.load()
+        workspaces_parent = get_workspace_page_model().objects.get()
 
-        return User.objects.exclude(id__in=workspaces_parent.page.get_children().values("owner_id"))
+        return User.objects.exclude(id__in=workspaces_parent.get_children().values("owner_id"))
