@@ -72,5 +72,20 @@ User has a full controll over this page. He can edit, publish, and even delete i
 
 ## Development
 
-...
+To develop this app locally you can just clone this repo. Than run local server by running 
+
+```
+$ python manage.py runserver
+```
+or when using VSCode just hit F5 or another Run key. VSCode will use settings from [launch.json](.vscode/launch.json)
+
+Then you can start developing this app!
+
+## Testing
+
+You can run tests like that:
+```
+$ python manage.py test
+```
+
 
